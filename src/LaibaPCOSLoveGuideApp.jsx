@@ -2100,9 +2100,6 @@ export default function LaibaPCOSLoveGuideApp() {
                   <h1 className="mt-6 text-4xl md:text-5xl font-black leading-tight text-slate-800">
                     Laiba, are you ready to fight PCOS with Afshaan? 💖
                   </h1>
-                  <p className="mt-4 text-slate-600 text-lg leading-8">
-                    This is not a scary medical portal. This is a soft, playful, loving guidebook with daily quests, easy food ideas, movement nudges, and tiny wins that add up.
-                  </p>
                   <div className="mt-8 space-y-3">
                     <div className="flex items-center gap-3 rounded-2xl bg-white/80 p-4 shadow-sm">
                       <Shield className="h-5 w-5 text-rose-500" />
