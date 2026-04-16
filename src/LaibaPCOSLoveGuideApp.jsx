@@ -4,25 +4,19 @@ import {
   Heart,
   Sparkles,
   Shield,
-  Apple,
   Dumbbell,
-  Moon,
-  Droplets,
   CheckCircle2,
   BookOpen,
   Target,
   CalendarDays,
   Trophy,
   Salad,
-  Footprints,
   Flame,
-  Smile,
   Star,
   Gift,
   BadgeHelp,
   Coffee,
   CookingPot,
-  Pill,
   Flower2,
 } from "lucide-react";
 import PartnerDashboard from "./PartnerDashboard";
@@ -76,29 +70,6 @@ const EXERCISES = [
     title: "Stretch + Breathe Reset",
     subtitle: "8–10 minutes",
     why: "A calmer nervous system can help daily consistency feel easier.",
-  },
-];
-
-const LIFESTYLE = [
-  {
-    title: "Hydration Love",
-    tip: "Keep water nearby and sip through the day.",
-    icon: Droplets,
-  },
-  {
-    title: "Sleep Like Royalty",
-    tip: "Aim for a consistent bedtime and a wind-down routine.",
-    icon: Moon,
-  },
-  {
-    title: "Stress = Mini Boss",
-    tip: "Try prayer, journaling, deep breathing, or a short walk.",
-    icon: Smile,
-  },
-  {
-    title: "Protein First",
-    tip: "Try adding protein to breakfast and snacks when possible.",
-    icon: Apple,
   },
 ];
 
@@ -2034,8 +2005,6 @@ export default function LaibaPCOSLoveGuideApp() {
   const [completed, setCompleted] = useLocalStorage("pcos-love-completed", {});
   const [activeGuide, setActiveGuide] = useState("basics");
   const [activeSection, setActiveSection] = useState("main"); // main | cookbook | tips | partner
-  const [recipeIndex, setRecipeIndex] = useState(0);
-  const [tipIndex, setTipIndex] = useState(0);
   // Move categoryIdx to top level to avoid hook order error
   const [categoryIdx, setCategoryIdx] = useState(0);
   // Modal state for recipe details
@@ -2609,294 +2578,9 @@ export default function LaibaPCOSLoveGuideApp() {
   );
 }
 
-export function PartnerDashboard({ userId }) {
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-rose-50 via-pink-50 to-orange-50 text-slate-800">
-      <div className="absolute top-6 left-6 z-10">
-        <button
-          onClick={() => setStarted(false)}
-          className="rounded-full bg-white/90 px-4 py-2 text-rose-600 font-semibold border border-rose-200 shadow hover:bg-rose-50 transition"
-        >
-          ← Back to Intro
-        </button>
-      </div>
-      <div className="flex gap-4 justify-center pt-6 pb-2">
-        <button onClick={() => setActiveSection("cookbook")}
-          className="rounded-full bg-orange-100 px-5 py-2 font-semibold text-orange-700 shadow-sm border border-orange-200 hover:bg-orange-200 transition">🍲 Cook Book</button>
-        <button onClick={() => setActiveSection("tips")}
-          className="rounded-full bg-emerald-100 px-5 py-2 font-semibold text-emerald-700 shadow-sm border border-emerald-200 hover:bg-emerald-200 transition">🌱 Healthy Tips</button>
-        <button onClick={() => setActiveSection("partner")}
-          className="rounded-full bg-indigo-100 px-5 py-2 font-semibold text-indigo-700 shadow-sm border border-indigo-200 hover:bg-indigo-200 transition">🤝 Partner Mode</button>
-      </div>
-      <AnimatePresence mode="wait">
-        <motion.div
-          key="app"
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="max-w-7xl mx-auto p-4 md:p-6"
-        >
-          <div className="grid lg:grid-cols-[1.15fr_0.85fr] gap-6">
-            <div className="space-y-6">
-                <div className="rounded-[2rem] border border-rose-100 bg-white/85 backdrop-blur-xl p-6 md:p-8 shadow-xl overflow-hidden relative">
-                  <div className="absolute right-4 top-4 flex gap-2">
-                    <span className="inline-flex items-center gap-1 rounded-full bg-rose-100 px-3 py-1 text-xs font-semibold text-rose-700">
-                      <Heart className="h-3.5 w-3.5" /> Love Mode
-                    </span>
-                    <span className="inline-flex items-center gap-1 rounded-full bg-orange-100 px-3 py-1 text-xs font-semibold text-orange-700">
-                      <Sparkles className="h-3.5 w-3.5" /> Quest Day
-                    </span>
-                  </div>
+  if (activeSection === "partner") {
+    return <PartnerDashboard userId={name} />;
+  }
 
-                  <div className="max-w-3xl">
-                    <div className="text-sm uppercase tracking-[0.24em] text-rose-500 font-semibold">Daily Boss Battle</div>
-                    <h2 className="mt-3 text-3xl md:text-4xl font-black leading-tight">
-                      {userId || "Laiba"}, today we annoy PCOS by being ridiculously consistent.
-                    </h2>
-                    <p className="mt-4 text-slate-600 text-lg leading-8">{affirmation}</p>
-                  </div>
-
-                  <div className="mt-8 grid sm:grid-cols-3 gap-4">
-                    <StatCard icon={Trophy} title="Daily Progress" value={`${progress}%`} sub={`${completionCount}/6 quests done`} />
-                    <StatCard icon={CalendarDays} title="Days Since Last Period" value={daysSincePeriod ?? "—"} sub={daysSincePeriod === null ? "Add a date below" : "Tracking helps notice changes"} />
-                    <StatCard icon={Shield} title="Main Goal" value="Steady habits" sub="Not perfection. Just progress." />
-                  </div>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="rounded-[2rem] border border-rose-100 bg-white/85 p-6 shadow-lg">
-                    <div className="flex items-center gap-3">
-                      <div className="rounded-2xl bg-rose-100 p-3 text-rose-600"><Coffee className="h-5 w-5" /></div>
-                      <div>
-                        <h3 className="font-bold text-xl">Breakfast of the Day</h3>
-                        <p className="text-sm text-slate-500">Low-friction, PCOS-friendly-ish idea</p>
-                      </div>
-                    </div>
-                    <div className="mt-5 rounded-3xl bg-gradient-to-br from-rose-50 to-orange-50 p-5 border border-rose-100">
-                      <div className="text-lg font-semibold">{breakfast.title}</div>
-                      <p className="mt-2 text-slate-600 leading-7">{breakfast.why}</p>
-                      <div className="mt-4 flex flex-wrap gap-2">
-                        {breakfast.items.map((item) => (
-                          <span key={item} className="rounded-full bg-white px-3 py-1.5 text-sm border border-rose-100">
-                            {item}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="rounded-[2rem] border border-rose-100 bg-white/85 p-6 shadow-lg">
-                    <div className="flex items-center gap-3">
-                      <div className="rounded-2xl bg-orange-100 p-3 text-orange-600"><Dumbbell className="h-5 w-5" /></div>
-                      <div>
-                        <h3 className="font-bold text-xl">Movement Quest</h3>
-                        <p className="text-sm text-slate-500">Cute cardio. Strong heroine energy.</p>
-                      </div>
-                    </div>
-                    <div className="mt-5 rounded-3xl bg-gradient-to-br from-orange-50 to-rose-50 p-5 border border-rose-100">
-                      <div className="text-lg font-semibold">{exercise.title}</div>
-                      <div className="mt-1 text-sm text-orange-700 font-medium">{exercise.subtitle}</div>
-                      <p className="mt-3 text-slate-600 leading-7">{exercise.why}</p>
-                      <div className="mt-4 text-sm text-slate-500">Bonus side quest: {bonusExercise.title}</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="rounded-[2rem] border border-rose-100 bg-white/90 p-6 shadow-xl">
-                  <div className="flex items-center justify-between gap-3 flex-wrap">
-                    <div>
-                      <h3 className="text-2xl font-black">Today’s To-Do Love List</h3>
-                      <p className="text-slate-500 mt-1">Minimal manual effort. Maximum cute accountability.</p>
-                    </div>
-                    <div className="rounded-full bg-rose-100 px-4 py-2 text-sm font-semibold text-rose-700">
-                      {completionCount === 6 ? "Boss defeated ✨" : `${6 - completionCount} little quests left`}
-                    </div>
-                  </div>
-
-                  <div className="mt-6 grid gap-3">
-                    <ChecklistItem
-                      checked={todayCompleted.breakfast}
-                      onChange={() => toggleTask("breakfast")}
-                      text={`Eat or prep the breakfast suggestion: ${breakfast.title}`}
-                      cute="No perfection needed. Even partial counts."
-                    />
-                    <ChecklistItem
-                      checked={todayCompleted.movement}
-                      onChange={() => toggleTask("movement")}
-                      text={`Do the movement quest: ${exercise.title}`}
-                      cute="Walking counts. Dancing counts. Existing counts."
-                    />
-                    <ChecklistItem
-                      checked={todayCompleted.water}
-                      onChange={() => toggleTask("water")}
-                      text={`Hydration quest: aim for ${waterGoal} cups today`}
-                      cute="Water bottle = emotional support item."
-                    />
-                    <ChecklistItem
-                      checked={todayCompleted.supplement}
-                      onChange={() => toggleTask("supplement")}
-                      text="Take supplements/meds if prescribed or already part of the routine"
-                      cute="Only as recommended by a clinician."
-                    />
-                    <ChecklistItem
-                      checked={todayCompleted.stress}
-                      onChange={() => toggleTask("stress")}
-                      text="Do one calm thing for stress: prayer, journaling, breathing, tea, or a walk"
-                      cute="Mini peace break for the nervous system."
-                    />
-                    <ChecklistItem
-                      checked={todayCompleted.sleep}
-                      onChange={() => toggleTask("sleep")}
-                      text="Protect tonight’s sleep with a calmer bedtime"
-                      cute="Sleep is skincare, moodcare, and hormonecare."
-                    />
-                  </div>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="rounded-[2rem] border border-rose-100 bg-white/85 p-6 shadow-lg">
-                    <div className="flex items-center gap-3">
-                      <div className="rounded-2xl bg-emerald-100 p-3 text-emerald-600"><Salad className="h-5 w-5" /></div>
-                      <div>
-                        <h3 className="text-xl font-bold">Foods to Enjoy More Often</h3>
-                        <p className="text-sm text-slate-500">Balanced, filling, supportive choices</p>
-                      </div>
-                    </div>
-                    <div className="mt-5 flex flex-wrap gap-2">
-                      {FOODS_TO_ENJOY.map((food) => (
-                        <span key={food} className="rounded-full border border-emerald-100 bg-emerald-50 px-3 py-1.5 text-sm text-emerald-800">
-                          {food}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="rounded-[2rem] border border-rose-100 bg-white/85 p-6 shadow-lg">
-                    <div className="flex items-center gap-3">
-                      <div className="rounded-2xl bg-amber-100 p-3 text-amber-600"><Flame className="h-5 w-5" /></div>
-                      <div>
-                        <h3 className="text-xl font-bold">Try to Limit More Often</h3>
-                        <p className="text-sm text-slate-500">Not forbidden. Just less frequent.</p>
-                      </div>
-                    </div>
-                    <div className="mt-5 flex flex-wrap gap-2">
-                      {LIMIT_MORE_OFTEN.map((food) => (
-                        <span key={food} className="rounded-full border border-amber-100 bg-amber-50 px-3 py-1.5 text-sm text-amber-800">
-                          {food}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-6">
-                <div className="rounded-[2rem] border border-rose-100 bg-white/90 p-6 shadow-xl">
-                  <div className="flex items-center gap-3">
-                    <div className="rounded-2xl bg-indigo-100 p-3 text-indigo-600"><BookOpen className="h-5 w-5" /></div>
-                    <div>
-                      <h3 className="text-2xl font-black">The PCOS Guidebook</h3>
-                      <p className="text-slate-500">Cute, calm, and actually useful</p>
-                    </div>
-                  </div>
-
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    {GUIDE_SECTIONS.map((section) => (
-                      <button
-                        key={section.key}
-                        onClick={() => setActiveGuide(section.key)}
-                        className={classNames(
-                          "rounded-full px-4 py-2 text-sm font-medium border transition",
-                          activeGuide === section.key
-                            ? "bg-rose-500 text-white border-rose-500"
-                            : "bg-white text-slate-700 border-rose-100 hover:border-rose-200"
-                        )}
-                      >
-                        {section.title}
-                      </button>
-                    ))}
-                  </div>
-
-                  <div className="mt-5 rounded-3xl bg-gradient-to-br from-indigo-50 to-rose-50 border border-rose-100 p-5">
-                    <div className="text-lg font-semibold">{guide.title}</div>
-                    <p className="mt-3 leading-7 text-slate-600">{guide.text}</p>
-                  </div>
-                </div>
-
-                <div className="rounded-[2rem] border border-rose-100 bg-white/90 p-6 shadow-xl">
-                  <div className="flex items-center gap-3">
-                    <div className="rounded-2xl bg-sky-100 p-3 text-sky-600"><Target className="h-5 w-5" /></div>
-                    <div>
-                      <h3 className="text-xl font-bold">Minimal Tracking</h3>
-                      <p className="text-sm text-slate-500">Only the basics. No exhausting forms.</p>
-                    </div>
-                  </div>
-
-                  <div className="mt-5 space-y-4">
-                    <div>
-                      <label className="text-sm text-slate-600">Last period start date</label>
-                      <input
-                        type="date"
-                        value={lastPeriodDate}
-                        onChange={(e) => setLastPeriodDate(e.target.value)}
-                        className="mt-2 w-full rounded-2xl border border-rose-200 bg-white px-4 py-3 outline-none focus:ring-2 focus:ring-rose-200"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-sm text-slate-600">Water goal (cups)</label>
-                      <input
-                        type="range"
-                        min="5"
-                        max="12"
-                        value={waterGoal}
-                        onChange={(e) => setWaterGoal(Number(e.target.value))}
-                        className="mt-3 w-full"
-                      />
-                      <div className="text-sm text-slate-500 mt-1">Current goal: {waterGoal} cups</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="rounded-[2rem] border border-rose-100 bg-white/90 p-6 shadow-xl">
-                  <div className="flex items-center gap-3">
-                    <div className="rounded-2xl bg-violet-100 p-3 text-violet-600"><Gift className="h-5 w-5" /></div>
-                    <div>
-                      <h3 className="text-xl font-bold">Helpful Product Suggestions</h3>
-                      <p className="text-sm text-slate-500">Support items, not miracle cures</p>
-                    </div>
-                  </div>
-                  <div className="mt-5 space-y-3">
-                    {PRODUCTS.map((product) => (
-                      <div key={product.name} className="rounded-2xl border border-rose-100 bg-rose-50/60 p-4">
-                        <div className="font-medium text-slate-800">{product.name}</div>
-                        <div className="text-sm text-slate-500 mt-1">{product.reason}</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="rounded-[2rem] border border-rose-100 bg-gradient-to-br from-rose-500 via-pink-500 to-orange-400 p-6 shadow-xl text-white">
-                  <div className="flex items-center gap-3">
-                    <Flower2 className="h-6 w-6" />
-                    <h3 className="text-xl font-black">Love Note Corner</h3>
-                  </div>
-                  <p className="mt-4 leading-8 text-white/95">
-                    Dear {name || "Laiba"}, this app is here to remind you that caring for PCOS does not mean being perfect. It means being loved, supported, and gently consistent. Afshaan is on your team. Every walk, every balanced meal, every early bedtime, every little choice counts.
-                  </p>
-                </div>
-
-                <div className="rounded-[2rem] border border-rose-100 bg-white/90 p-6 shadow-xl">
-                  <div className="flex items-center gap-3">
-                    <BadgeHelp className="h-5 w-5 text-rose-500" />
-                    <h3 className="text-lg font-bold">Medical Safety Note</h3>
-                  </div>
-                  <p className="mt-3 text-sm leading-7 text-slate-600">
-                    This app supports healthy routines and symptom awareness. It does not diagnose or treat PCOS. A clinician should guide medications, supplements, testing, missed periods, severe pain, heavy bleeding, or pregnancy planning.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-      </AnimatePresence>
-    </div>
-  );
+  return null;
 }
