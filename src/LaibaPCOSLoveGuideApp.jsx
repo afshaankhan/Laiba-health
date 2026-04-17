@@ -2558,11 +2558,6 @@ export default function LaibaPCOSLoveGuideApp() {
                 <div className="rounded-[2rem] border border-rose-100 bg-white/90 p-6 shadow-xl">
                   <div className="flex items-center gap-3">
                     <BadgeHelp className="h-5 w-5 text-rose-500" />
-                    <h3 className="text-lg font-bold">Medical Safety Note</h3>
-                  </div>
-                  <p className="mt-3 text-sm leading-7 text-slate-600">
-                    This app supports healthy routines and symptom awareness. It does not diagnose or treat PCOS. A clinician should guide medications, supplements, testing, missed periods, severe pain, heavy bleeding, or pregnancy planning.
-                  </p>
                 </div>
               </div>
             </div>
