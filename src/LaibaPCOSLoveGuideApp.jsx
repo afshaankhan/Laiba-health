@@ -2138,9 +2138,6 @@ export default function LaibaPCOSLoveGuideApp() {
                     >
                       Yes, let’s fight PCOS together ✨
                     </motion.button>
-                    <p className="mt-4 text-xs text-slate-500 leading-5">
-                      Gentle note: this app supports healthy routines and tracking. It does not replace a doctor, diagnosis, or emergency care.
-                    </p>
                   </div>
                 </div>
               </div>
